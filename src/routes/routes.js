@@ -1,7 +1,7 @@
 const express = require('express'); 
 const router = express.Router(); 
 
-const UsuariosController = require('../controllers/Assuntos'); 
+const AssuntosController = require('../controllers/Assuntos'); 
 
 router.get('/Assuntos', AssuntosController.listarAssuntos); 
 router.post('/Assuntos', AssuntosController.cadastrarAssuntos); 
