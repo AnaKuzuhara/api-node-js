@@ -31,7 +31,63 @@ module.exports = {
         }
     }, 
     async cadastrarAssuntos(request, response) {
+
         try {
+            const{ asst_nome}=request.body;
+        
+
+            const sql = `
+            INSERT INTO ASSUNTOS 
+(asst_nome) 
+VALUES
+('Problemas técnicos'),
+('Dúvidas sobre progresso no jogo'),
+('Sugestões de melhorias'),
+('Problemas com salvamento de progresso'),
+('Reportar bugs'),
+('Dúvidas sobre personagens'),
+('Problemas com instalação'),
+('Dúvidas sobre requisitos do sistema'),
+('Sugestões de novos personagens'),
+('Dúvidas sobre história do jogo'),
+('Problemas com controles (teclado/mouse)'),
+('Dúvidas sobre desbloqueio de conteúdo'),
+('Elogios ao jogo'),
+('Dúvidas sobre atualizações futuras'),
+('Problemas com desempenho (lag/travamentos)'),
+('Dúvidas sobre compatibilidade'),
+('Sugestões de novos recursos'),
+('Problemas com áudio'),
+('Dúvidas sobre finais alternativos'),
+('Outros')
+`;
+
+            const values=[asst_nome];
+
+            const [result]= await db.query(sql, values);
+
+            const dados ={
+                id: result.insertID,
+                asst_nome
+            };
+
+
+            return response.status(200).json({
+                sucesso:true,
+                mensagem: 'Cadastro de usuarios',
+                dados: dados
+            });
+
+            }catch (error){
+                return response.status(500).json({
+                sucesso:false,
+                mensagem:'Erro na requisiçao.',
+                dados: error.message
+
+                });
+            }
+            },
+
             return response.status(200).json({
                 sucesso: true, 
                 mensagem: 'Cadastro de Assuntos', 
