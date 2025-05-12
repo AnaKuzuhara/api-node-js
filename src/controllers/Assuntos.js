@@ -70,17 +70,45 @@ module.exports = {
     }, 
     async editarAssuntos(request, response) {
     try {
-        return response.status(200).json({
-            sucesso: true,
-            mensagem: 'Alteração no cadastro de Assuntos',
-            dados: null
-        });
-    } catch (error) {
-        return response.status(500).json({
-            sucesso: false,
-            mensagem: 'Erro na requisição.',
-            dados: error.message
-        });
+        const { asst_nome } = request.body;
+
+            const { id } = request.params;
+
+            const sql = `
+                UPDATE ASSUNTOS SET
+                    asst_nome = ?
+                WHERE
+                    asst_id = ?;
+            `;
+
+            const values = [ asst_nome, id ];
+
+            const [result] = await db.query(sql, values);
+
+            if(result.affectedRows === 0) {
+                return response.status(404).json({
+                    sucesso: false,
+                    mensagem: `Usuário ${id} não encontrado!`,
+                    dados: null
+                })
+            }
+
+            const dados = {
+                id,
+                asst_nome
+            };
+
+            return response.status(200).json({
+                sucesso: true, 
+                mensagem: `Usuário ${id} atualizado com sucesso!`, 
+                dados
+            });
+        } catch (error) {
+            return response.status(500).json({
+                sucesso: false, 
+                mensagem: 'Erro na requisição.', 
+                dados: error.message
+            });
     }
 }, 
     async apagarAssuntos(request, response) {
