@@ -1,12 +1,8 @@
 const express = require('express'); 
 const router = express.Router(); 
 
-const AssuntosController = require('../controllers/Assuntos'); 
+import AnaSofhiaRoutes from "./routesAnaSofhia"
 
-router.get('/Assuntos', AssuntosController.listarAssuntos); 
-router.post('/Assuntos', AssuntosController.cadastrarAssuntos); 
-router.patch('/Assuntos', AssuntosController.editarAssuntos); 
-router.delete('/Assuntos', AssuntosController.apagarAssuntos); 
-
+router.use("/", AnaSofhiaRoutes)
 
 module.exports = router;
