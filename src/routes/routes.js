@@ -1,7 +1,7 @@
 const express = require('express'); 
 const router = express.Router(); 
 
-import AnaSofhiaRoutes from "./routesAnaSofhia"
+const AnaSofhiaRoutes = require("./routesAnaSofhia");
 
 router.use("/", AnaSofhiaRoutes)
 
